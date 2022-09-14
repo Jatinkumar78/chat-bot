@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Robot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/1bd5a2332f.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="loader">
+        <div class="loading"></div>
+        <p>Please wait...</p>
+      </div>
+      <div class="massnger">
+        <!-- Popup start -->
+        <div class="popup"></div>
+        <!-- Popup end -->
+
+        <div class="header">
+          <h2>Chat Robot</h2>
+          <button class="header-menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <ul class="header-menu-details">
+            <li class="block-user"><a>Block</a></li>
+            <li class="report"><a>Report</a></li>
+            <li class="setting"><a>Setting</a></li>
+            <li class="clear-all"><a>Clear All</a></li>
+          </ul>
+        </div>
+
+        <div class="chat-box">
+          <!-- Setting -->
+          <div class="setting-container">
+            <div class="setting-change-con">
+              <div>
+                <div class="setting-change-con-text">
+                  <label class="font-size-lab" for="rag">Font Size</label>
+                  <span class="font-size-value"></span>
+                </div>
+                <input
+                  value="16"
+                  min="1"
+                  max="50"
+                  class="range-font"
+                  id="rag"
+                  type="range"
+                />
+              </div>
+              <div>
+                <div class="setting-change-con-text">
+                  <label class="font-weight-lab" for="font-w"
+                    >Font Weight</label
+                  >
+                  <span class="font-weight-value"></span>
+                </div>
+                <input
+                  value="350"
+                  min="350"
+                  max="602"
+                  class="weight-font"
+                  id="font-w"
+                  type="range"
+                />
+              </div>
+            </div>
+            <div class="setting-messages">
+              <p align="center" class="time">Today</p>
+              <div class="user chat">
+                <p class="setting-messages-text" style="font-size: 15px">
+                  Hello
+                </p>
+                <span>15:39</span>
+              </div>
+
+              <div class="bot chat">
+                <p class="setting-messages-text" style="font-size: 15px">Hi</p>
+                <span>15:39</span>
+              </div>
+            </div>
+            <div class="btns">
+              <button class="close-setting">Default</button>
+              <button class="confirm-setting">Confirm</button>
+            </div>
+          </div>
+          <!-- Setting End  -->
+
+          <!-- Report -->
+          <div class="report-container">
+            <p id="report-que">
+              Why do you wanna <strong>report</strong> the
+              <strong>Bot</strong> ?
+            </p>
+            <br />
+            <div>
+              <label for="bad-content">Violence</label>
+              <input type="checkbox" />
+            </div>
+            <div>
+              <label for="child-content">Child Abuse</label>
+              <input type="checkbox" />
+            </div>
+            <div>
+              <label for="sex-content">Pornography</label>
+              <input type="checkbox" />
+            </div>
+            <div>
+              <label for="others">Others</label>
+              <input id="others" type="checkbox" />
+            </div>
+            <div class="btns">
+              <button class="close-report">Cancel</button>
+              <button class="confirm-report">Confirm</button>
+            </div>
+          </div>
+          <!-- Report -->
+          <!-- Block -->
+          <div class="block-container">
+            <p>
+              You <strong>Blocked</strong> the Bot <br />
+              <strong>Click</strong> the Button below to
+              <strong>Unblock</strong>
+            </p>
+            <button class="unblock-btn">Unblock</button>
+          </div>
+          <!-- Block End-->
+          <p class="chat-time"></p>
+          <div class="no-message">
+            <img
+              alt="no message picture"
+              src="https://icon-library.com/images/messenger-app-icon/messenger-app-icon-20.jpg"
+              width="100"
+              height="100"
+            />
+            <p>No messages here yet...</p>
+          </div>
+          <div class="chats"></div>
+        </div>
+        <div class="footer">
+          <input class="message" type="text" placeholder="Write a message..." />
+          <button class="send">Send</button>
+        </div>
+      </div>
+    </div>
+    <!-- <script src="robot.js"></script> -->
+    <script type="text/javascript">
+      // let allContent = document.querySelector("*");
+      let seeBtn = document.querySelector(".see");
+      let scroll = document.querySelector(".scroll");
+      let loader = document.querySelector(".loader");
+      let massenger = document.querySelector(".massnger");
+      let container = document.querySelector(".container");
+      let popup = document.querySelector(".popup");
+      let chatBox = document.querySelector(".chat-box");
+      let icon = document.querySelector(".see i");
+      let msgInp = document.querySelector(".message");
+      let innerMsg = document.querySelector(".message::placeholder");
+      let chatTime = document.querySelector(".chat-time");
+      let sendBtn = document.querySelector(".send");
+      let chats = document.querySelector(".chats");
+      let headerMenu = document.querySelector(".header-menu-details");
+      let headerMenuBtn = document.querySelector(".header-menu-btn");
+      let clearAll = document.querySelector(".clear-all");
+      let clearAllTxt = document.querySelector(".clear-all a");
+      let settingBtn = document.querySelector(".setting");
+      let fontLab = document.querySelector(".font-lab");
+      let noMsgTxt = document.querySelector(".no-message");
+      let closeSet = document.querySelector(".close-setting");
+      let confirmSet = document.querySelector(".confirm-setting");
+      let report = document.querySelector(".report");
+      let closeReport = document.querySelector(".close-report");
+      let reportCon = document.querySelector(".report-container");
+      let confirmReport = document.querySelector(".confirm-report");
+      let blockBtn = document.querySelector(".block-user");
+      let blockCon = document.querySelector(".block-container");
+      let unblockBtn = document.querySelector(".unblock-btn");
+      let setCon = document.querySelector(".setting-container");
+      let fontRange = document.querySelector(".range-font");
+      let chat = document.querySelectorAll(".chat");
+      let msgFontOnSets = document.querySelectorAll(".setting-messages-text");
+      let fontSizeVal = document.querySelector(".font-size-value");
+      let fontWeightTxt = document.querySelector(".font-weight-value");
+      let fontWeightInp = document.querySelector(".weight-font");
+      setTimeout(function () {
+        massenger.classList.add("show");
+        loader.style.display = "none";
+        alert("Hey guys, Jatin here  ):");
+      }, 4000);
+      var fontVal = fontRange.value;
+      fontSizeVal.textContent = `${fontVal}px`;
+      var fontWeightTxtV = fontWeightInp.value;
+      fontWeightTxt.textContent = `${fontWeightTxtV}`;
+      msgFontOnSets.forEach((msgFontOnSet) => {
+        msgFontOnSet.style.fontSize = `${fontVal}px`;
+        msgFontOnSet.style.fontWeight = `${fontWeightTxtV}`;
+      });
+      fontRange.oninput = () => {
+        fontVal = fontRange.value;
+        fontSizeVal.textContent = `${fontVal}px`;
+        msgFontOnSets.forEach((msgFontOnSet) => {
+          msgFontOnSet.style.fontSize = `${fontVal}px`;
+          msgFontOnSet.style.fontWeight = `${fontWeightTxtV}`;
+        });
+      };
+      fontWeightInp.oninput = () => {
+        fontWeightTxtV = fontWeightInp.value;
+        fontWeightTxt.textContent = `${fontWeightTxtV}`;
+        msgFontOnSets.forEach((msgFontOnSet) => {
+          msgFontOnSet.style.fontSize = `${fontVal}px`;
+          msgFontOnSet.style.fontWeight = `${fontWeightTxtV}`;
+        });
+      };
+      headerMenuBtn.onclick = (e) => {
+        if (!headerMenu.classList.contains("open")) {
+          headerMenu.classList.add("open");
+        } else {
+          headerMenu.classList.remove("open");
+        }
+      };
+      chatBox.onclick = () => {
+        headerMenu.classList.remove("open");
+      };
+      settingBtn.onclick = () => {
+        setCon.style.display = "block";
+        headerMenu.classList.remove("open");
+        popup.style.display = "block";
+      };
+      report.onclick = (e) => {
+        headerMenu.classList.remove("open");
+        reportCon.style.display = "block";
+        popup.style.display = "block";
+      };
+      closeReport.onclick = () => {
+        reportCon.style.display = "none";
+        popup.style.display = "none";
+      };
+      confirmReport.onclick = (e) => {
+        let reportMsg = confirm("Do you really wanna report?");
+        if (reportMsg) {
+          alert("You reported the bot");
+          reportCon.style.display = "none";
+          popup.style.display = "none";
+        }
+      };
+      closeSet.onclick = () => {
+        fontVal = fontRange.value;
+        fontWeightTxtV = fontWeightInp.value;
+        fontWeightTxtV = 350;
+        fontVal = 16;
+        setCon.style.display = "none";
+        popup.style.display = "none";
+      };
+      confirmSet.onclick = () => {
+        fontVal = fontRange.value;
+        fontWeightTxtV = fontWeightInp.value;
+        setCon.style.display = "none";
+        popup.style.display = "none";
+      };
+      clearAll.classList.add("lock");
+      clearAllTxt.style.opacity = ".5";
+      clearAll.onclick = (e) => {
+        popup.style.display = "block";
+        let confirmMsg = confirm("Do you want to clear all the messages?");
+        if (confirmMsg) {
+          chatTime.style.display = "none";
+          noMsgTxt.style.display = "block";
+          chats.innerHTML = ``;
+          popup.style.display = "none";
+        } else {
+          popup.style.display = "none";
+        }
+        headerMenu.classList.remove("open");
+        e.target.classList.add("lock");
+        clearAllTxt.style.opacity = ".5";
+      };
+      blockBtn.onclick = (e) => {
+        popup.style.display = "block";
+        headerMenu.classList.remove("open");
+        let botBlock = confirm("Do you wanna block the bot?");
+        if (botBlock) {
+          msgInp.classList.add("lock");
+          blockBtn.style.opacity = ".5";
+          blockCon.classList.add("unblock-show");
+          popup.style.display = "none";
+          e.target.classList.add("lock");
+        } else {
+          popup.style.display = "none";
+        }
+      };
+      unblockBtn.onclick = () => {
+        setTimeout(function () {
+          blockCon.classList.remove("unblock-show");
+          msgInp.classList.remove("lock");
+          blockBtn.classList.remove("lock");
+          blockBtn.style.opacity = "1";
+        }, 1000);
+      };
+      popup.onclick = () => {
+        popup.style.display = "none";
+        if ((reportCon.style.display = "block")) {
+          reportCon.style.display = "none";
+        }
+        if ((setCon.style.display = "block")) {
+          setCon.style.display = "none";
+        }
+      };
+      msgInp.onclick = () => {
+        msgInp.focus();
+        headerMenu.classList.remove("open");
+      };
+      var msgVal = msgInp.value;
+      var date = new Date();
+      var hour = date.getHours();
+      var min = date.getMinutes();
+      var sec = date.getSeconds();
+      if (hour < 10) {
+        hour = "0" + hour;
+      }
+      if (min < 10) {
+        min = "0" + min;
+      }
+      var nowTime = `${hour}:${min}`;
+      if (hour < 24 || hour > 12) {
+        chatTime.textContent = "Today";
+      } else {
+        chatTime.textContent = "Yesterday";
+      }
+
+      msgInp.onkeyup = () => {
+        msgVal = msgInp.value;
+        if (msgVal == 0) {
+          sendBtn.classList.remove("show-send");
+        } else {
+          sendBtn.classList.add("show-send");
+        }
+      };
+
+      let userMsg = document.createElement("div");
+      function userMsgSending() {
+        msgVal = msgInp.value;
+        fontWeightTxtV = fontWeightInp.value;
+        noMsgTxt.style.display = "none";
+        chatTime.style.display = "block";
+        userMsg = document.createElement("div");
+        userMsg.className = "user chat";
+        userMsg.onmousedown = (e) => {
+          let deleteMsg = confirm("Do you wanna delete this message?");
+          if (deleteMsg) {
+            e.currentTarget.remove();
+          }
+        };
+        let message = "";
+
+        message += `<p style="font-size:${fontVal}px;font-weight:${fontWeightTxtV};">${msgVal}</p><span>${nowTime}</span>`;
+        userMsg.innerHTML = message;
+        chats.appendChild(userMsg).scrollIntoView();
+
+        setTimeout(function () {
+          msgInp.value = "";
+        }, 700);
+      }
+      let botResponse;
+      function botMsgSending() {
+        msgVal = msgInp.value;
+        fontWeightTxtV = fontWeightInp.value;
+        // Massages Part Start
+        if (msgVal.trim() == "hi" || msgVal.trim() == "Hi") {
+          botResponse = "Hello";
+        } else if (
+          msgVal.trim() == "How are you?" ||
+          msgVal.trim() == "how are you?"
+        ) {
+          botResponse = "Thanks how about you?";
+        } else if (
+          msgVal.trim() == "I'm fine" ||
+          msgVal.trim() == "fine" ||
+          msgVal.trim() == "thanks" ||
+          msgVal.trim() == "Thanks" ||
+          msgVal.trim() == "Thank you" ||
+          msgVal.trim() == "thank you"
+        ) {
+          botResponse = "Great";
+        } else if (msgVal.trim() == "Where are you from?") {
+          botResponse = "I don't know ):";
+        } else if (msgVal.trim() == "ok" || msgVal.trim() == "Ok") {
+          botResponse = "Nice What is your name?";
+        } else {
+          botResponse = "Would you please ask again?";
+        }
+        // Massages Part End
+        let botMsg = document.createElement("div");
+        botMsg.className = "bot chat";
+        let botMessage = "";
+        botMessage += `<p style="font-size:${fontVal}px;font-weight: ${fontWeightTxtV};">${botResponse}</p><span>${nowTime}</span>`;
+        botMsg.innerHTML = botMessage;
+        chats.appendChild(botMsg).scrollIntoView();
+      }
+      sendBtn.addEventListener("click", () => {
+        sendBtn.classList.remove("show-send");
+        msgVal = msgInp.value;
+        userMsgSending();
+        setTimeout(function () {
+          botMsgSending();
+        }, 699);
+        msgInp.focus();
+        clearAll.classList.remove("lock");
+        clearAllTxt.style.opacity = "1";
+      });
+      function noMsgShow() {
+        noMsgTxt.style.display = "none";
+      }
+    </script>
+  </body>
+</html>
